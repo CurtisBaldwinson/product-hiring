@@ -1,4 +1,4 @@
-const { randomCargo, randomMoney, randomCoordinates } = require('./utils')
+const {randomCargo, randomMoney, randomCoordinates} = require('./utils')
 
 class CargoShip {
     constructor() {
@@ -12,12 +12,15 @@ class CargoShip {
     moveNorth() {
         this.y -= 1;
     }
+
     moveSouth() {
         this.y += 1;
     }
+
     moveWest() {
         this.x -= 1;
     }
+
     moveEast() {
         this.x += 1;
     }

@@ -29,7 +29,7 @@ class Board {
             }
         }
 
-        for(let x = 0; x < 1000; x++) {
+        for (let x = 0; x < 1000; x++) {
             for (let y = 0; y < 1000; y++) {
                 for (let cargo of this.cargoShips) {
                     if (cargo.x === x && cargo.y === y) {
@@ -70,12 +70,15 @@ class Board {
     moveNorth() {
         this.pirate.moveNorth();
     }
+
     moveSouth() {
         this.pirate.moveSouth()
     }
+
     moveWest() {
         this.pirate.moveWest();
     }
+
     moveEast() {
         this.pirate.moveEast();
     }
