@@ -1,10 +1,9 @@
 const {randomCargo, randomMoney, randomCoordinates} = require('./utils')
 
 class CargoShip {
-    constructor() {
-        const coordinates = randomCoordinates();
-        this.x = coordinates.x;
-        this.y = coordinates.y;
+    constructor(initialX, initialY) {
+        this.x = initialX;
+        this.y = initialY;
         this.cargo = randomCargo();
         this.money = randomMoney();
     }

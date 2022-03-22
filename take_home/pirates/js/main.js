@@ -24,7 +24,7 @@ const welcomeMessage = `
     `
 
 function main() {
-    const gameMaster = new GameMaster()
+    const gameMaster = new GameMaster(50, 20, 3)
     console.log(welcomeMessage);
     gameMaster.turn()
 

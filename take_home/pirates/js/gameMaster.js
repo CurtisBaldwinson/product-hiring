@@ -7,15 +7,15 @@ const readline = require('readline').createInterface({
 })
 
 class GameMaster {
-    constructor() {
-        this.board = new Board();
+    constructor(gameBoardLength, numIslands, numCargoShips) {
+        this.board = new Board(gameBoardLength, numIslands, numCargoShips);
     }
 
     turn() {
         this.board.display();
         readline.question("Which direction would you like to move? (1: North, 2: East, 3: South, 4: West): ", direction => {
             if (direction === '1') {
-                this.board.moveSouth();
+                this.board.moveNorth();
             } else if (direction === '2') {
                 this.board.moveEast();
             } else if (direction === '3') {

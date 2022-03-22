@@ -3,53 +3,61 @@ const CargoShip = require('./cargoShip')
 const Island = require('./island')
 
 class Board {
-    constructor() {
-        this.pirate = new PirateShip()
+
+    constructor(gameBoardLength, numIslands, numCargoShips) {
+        this.gameBoardLength = gameBoardLength;
+        this.numIslands = numIslands;
+        this.numCargoShips = numCargoShips;
+        this.pirate = new PirateShip(this.getRandomBoardScalar(), this.getRandomBoardScalar());
         this.islands = []
         this.cargoShips = []
+        this.board = [...Array(gameBoardLength)].map(x => Array(gameBoardLength).fill('^'));
         this.initBoard()
     }
 
     initBoard() {
-        for (let i = 0; i < 20; i++) {
-            this.islands.push(new Island())
+        console.log("TESTING TESTING");
+        for (let i = 0; i < this.numIslands; i++) {
+            let {x, y} = this.getRandomCoordinates();
+            this.islands.push(new Island(x, y));
         }
-        for (let i = 0; i < 3; i++) {
-            this.cargoShips.push(new CargoShip())
+        for (let i = 0; i < this.numCargoShips; i++) {
+            let {x, y} = this.getRandomCoordinates();
+            this.cargoShips.push(new CargoShip(x, y));
         }
     }
 
+    getRandomCoordinates() {
+        let x = 0;
+        let y = 0;
+        do {
+            x = this.getRandomBoardScalar();
+            y = this.getRandomBoardScalar();
+        } while (this.board[x][y] !== '^');
+
+        return {x, y};
+    }
+
+    getRandomBoardScalar() {
+        return Math.floor(Math.random() * this.gameBoardLength);
+    }
+
     display() {
-        const board = []
-        // fill board with sea char
-        for (let x = 0; x < 1000; x++) {
-            board[x] = []
-            for (let y = 0; y < 1000; y++) {
-                board[x].push('^')
-            }
+        for (let cargo of this.cargoShips) {
+            this.board[cargo.x][cargo.y] = 'C';
+            console.log("cargo", cargo.x, cargo.y);
         }
-
-        for (let x = 0; x < 1000; x++) {
-            for (let y = 0; y < 1000; y++) {
-                for (let cargo of this.cargoShips) {
-                    if (cargo.x === x && cargo.y === y) {
-                        board[x][y] = 'C'
-                    }
-                }
-                for (let island of this.islands) {
-                    if (island.x === x && island.y === y) {
-                        board[x][y] = 'I'
-                    }
-                }
-                if (this.pirate.x === x && this.pirate.y === y) {
-                    board[x][y] = 'P'
-                }
-            }
+        for (let island of this.islands) {
+            this.board[island.x][island.y] = 'I';
+            console.log("island", island.x, island.y);
         }
-
-        // print board
-        for (let i = 0; i < 1000; i++) {
-            console.log(board[i].join(''))
+        this.board[this.pirate.x][this.pirate.y] = 'P';
+        for (let x = 0; x < this.gameBoardLength; x++) {
+            let row = '';
+            for (let y = 0; y < this.gameBoardLength; y++) {
+                row += this.board[x][y];
+            }
+            console.log(row);
         }
     }
 
@@ -68,18 +76,22 @@ class Board {
     }
 
     moveNorth() {
+        this.board[this.pirate.x][this.pirate.y] = '^';
         this.pirate.moveNorth();
     }
 
     moveSouth() {
-        this.pirate.moveSouth()
+        this.board[this.pirate.x][this.pirate.y] = '^';
+        this.pirate.moveSouth();
     }
 
     moveWest() {
+        this.board[this.pirate.x][this.pirate.y] = '^';
         this.pirate.moveWest();
     }
 
     moveEast() {
+        this.board[this.pirate.x][this.pirate.y] = '^';
         this.pirate.moveEast();
     }
 }
